@@ -110,54 +110,6 @@ class EmojiProcessor(DataProcessor):
                 InputExample(guid=guid, text_a=text_a, text_b=None, label=label))
         return examples
 
-
-
-
-# class ImdbProcessor(DataProcessor):
-#     """Processor for the IMDB Movie Review data set ."""
-#     def get_train_examples(self, data_dir):
-#         """See base class."""
-#         """logger.info("LOOKING AT {}".format(os.path.join(data_dir, "train.tsv")))"""
-#         folder1 = os.path.join(data_dir, "train", "pos")
-#         folder2 = os.path.join(data_dir, "train", "neg")
-#         return self._create_examples_from_folder([folder1, folder2], "train")
-
-#     def get_dev_examples(self, data_dir):
-#         """See base class."""
-#         folder1 = os.path.join(data_dir, "test", "pos")
-#         folder2 = os.path.join(data_dir, "test", "neg")
-#         return self._create_examples_from_folder([folder1, folder2], "dev")
-
-#     def get_labels(self):
-#         """See base class."""
-#         return ["0", "1"]
-
-#     """def get_label_from_name(self, name):
-#         return label_dict[id]"""
-
-#     def _create_examples_from_folder(self, folder_list, set_type):
-#         """Creates examples for the training and dev sets from labelled folder."""
-#         examples = []
-#         i = 0
-#         for folder in folder_list:
-#             label_dir = os.path.basename(folder)
-#             for input_file in os.listdir(folder):
-#                 if input_file.endswith(".txt"):
-#                     with open(os.path.join(folder, input_file), "r") as f:
-#                         text_a = f.readlines()[0]
-#                         guid = "%s-%d" % (set_type, i)
-#                         i += 1
-#                         text_b = None
-#                         label = task_labels[label_dir]
-#                         """logger.info("guid: %s, file: <%s>, text_a= <%s>, label=%s" % (guid, input_file, text_a, label))"""
-#                         examples.append(
-#                             InputExample(guid=guid,
-#                                          text_a=text_a,
-#                                          text_b=text_b,
-#                                          label=label))
-#         return examples
-
-
 def convert_examples_to_features(examples,
                                  label_list,
                                  max_seq_length,
