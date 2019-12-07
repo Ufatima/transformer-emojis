@@ -130,9 +130,6 @@ class EmojiProcessor(DataProcessor):
 
     def get_labels(self):
         labels_path = os.path.join(self.data_dir, "emoji_index.txt")
-        print("****************************************")
-        print(f'labels_path={labels_path}')
-        print("****************************************")
         with open(labels_path, "r") as label_file:
             return [str(i) for i, _ in enumerate(label_file.read().split(","))]
 
@@ -322,9 +319,6 @@ def convert_examples_to_features(
         ), "Error with input length {} vs {}".format(len(token_type_ids), max_length)
 
         if output_mode == "classification":
-            print("****************************************")
-            print(f'example.label={example.label}')
-            print("****************************************")
             label = label_map[example.label]
         elif output_mode == "regression":
             label = float(example.label)
