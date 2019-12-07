@@ -426,6 +426,10 @@ def load_and_cache_examples(args, task, tokenizer, evaluate=False):
             if evaluate
             else processor.get_train_examples()
         )
+        print("\n****************************************")
+        print(examples[:5])
+        print("****************************************\n")
+
         features = convert_examples_to_features(
             examples,
             tokenizer,
