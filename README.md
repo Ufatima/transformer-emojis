@@ -65,8 +65,5 @@ Or change the params to you your liking.
 ## Running in Colab
 You refer to the `/notebooks/train_colab.ipynb` to train the model using Google Colab and
 
-## Evaluation
-TODO
-
 ## Acknowledgements
 I'd like to thank the Huggingface team for building the [Transformers](https://github.com/huggingface/transformers) library and [nikhilno1](https://github.com/nikhilno1) for [this](https://medium.com/@nikhil.utane/running-pytorch-transformers-on-custom-datasets-717fd9e10fe2) article for helping me use custom data with the Transformers.
