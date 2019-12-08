@@ -129,7 +129,7 @@ class EmojiProcessor(DataProcessor):
         )
 
     def get_labels(self):
-        labels_path = os.path.join(self.data_dir, "emoji_index.txt")
+        labels_path = os.path.join("./emoji_index.txt")
         with open(labels_path, "r") as label_file:
             return [str(i) for i, _ in enumerate(label_file.read().split(","))]
 
