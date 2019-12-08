@@ -37,7 +37,7 @@ $ python split_dataset.py --input=./data/emoji_dataset/en/all.tsv --output=./dat
 
 Make sure that the dev and test size reflect the size of your collected data. The rest of the dataset is allocated to the train set.
 
-That's it! You now have a dataset to train your emoji predictor 🥳
+That's it! You now have a dataset to train your emoji predictor with 🥳
 
 ## Running training
 Now to the exiting part: training the model. Once you have your dataset ready, you simply run the following command to train the model:
