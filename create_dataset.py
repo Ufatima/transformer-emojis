@@ -7,12 +7,12 @@ import argparse
 import tweepy
 
 
-def get_secrets(path="./secrets.json"):
+def get_secrets(path):
     with open(path, "r") as f:
         return json.loads(f.read())
 
 
-def get_emojis(path="./emoji_index.txt"):
+def get_emojis(path):
     with open(path, "r") as f:
         return f.read().split(",")
 
@@ -83,12 +83,24 @@ if __name__ == "__main__":
         help="Print the progress every n tweet",
         default=100,
     )
+    parser.add_argument(
+        "--secrets",
+        type=str,
+        help="Path to the secrets.json file holding your Twitter app credentials",
+        default="./secrets.json",
+    )
+    parser.add_argument(
+        "--emojis",
+        type=str,
+        help="Path to the file containing a list of emojis to track",
+        default="./emoji_index.txt",
+    )
 
     args = parser.parse_args()
     args.langs = args.langs.split(",")
 
-    secrets = get_secrets()
-    emojis = get_emojis()
+    secrets = get_secrets(args.secrets)
+    emojis = get_emojis(args.emojis)
 
     auth = tweepy.OAuthHandler(secrets["consumer_key"], secrets["consumer_secret"])
     auth.set_access_token(secrets["access_token_key"], secrets["access_token_secret"])
