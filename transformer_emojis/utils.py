@@ -146,9 +146,9 @@ class EmojiProcessor(DataProcessor):
         return examples
 
 
-def label_to_emoji(labels_path):
+def get_label_to_emoji_map(labels_path):
     with open(labels_path, "r") as f:
-        return {label: emoji for label, emoji in enumerate(f.readlines().split(","))}
+        return {label: emoji.strip() for label, emoji in enumerate(f.read().split(","))}
 
 
 def _truncate_seq_pair(tokens_a, tokens_b, max_length):
@@ -262,6 +262,7 @@ def convert_examples_to_features(
     if is_tf_available() and isinstance(examples, tf.data.Dataset):
         is_tf_dataset = True
 
+    # TODO: Pass processor as an argument instead of creating a new one
     if task is not None:
         processor = processors[task](data_dir)
         if label_list is None:
