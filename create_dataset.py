@@ -37,23 +37,33 @@ class EmojiStreamListener(tweepy.StreamListener):
         t = status._json
         text = t["extended_tweet"]["full_text"] if t["truncated"] else t["text"]
 
-        # Remove tabs and spaces
-        text = " ".join(text.split())
-
-        # Remove links
-        text = re.sub(r"http\S+", "", text)
-
         # Extract and remove emojis
         emos = extract_emojis(text)
         for e in emos:
             text = text.replace(e, "")
 
+        # Remove tabs and spaces
+        text = " ".join(text.split())
+
+        # Remove RT at the beginnin
+        text = re.sub(r"^RT ", "", text)
+
+        # Remove links, user links, and hashtags
+        text = re.sub(r"(@[A-Za-z0-9]+)|([^0-9A-Za-z \t])|(\w+:\/\/\S+)", "", text)
+
+        # # Remove hashtags
+        # text = re.sub(r"/^#\w+$/", "", text)
+
         # Remove non alphanumerics but leave spaces
         text = re.sub(r"([^\s\w]|_)+", "", text)
 
-        for e in emos:
+        # Remove trailing whitespace
+        text = text.strip()
+
+        for i, e in enumerate(emos):
             emoji_idx = emojis.index(e)
-            line = f"{self.idx}\t{emoji_idx}\ta\t{text}\n"
+            line_id = t["id_str"] + str(i)
+            line = f"{line_id}\t{emoji_idx}\ta\t{text}\n"
             self.idx += 1
             with open(os.path.join(self.args.out_dir, t["lang"], "all.tsv"), "a+") as f:
                 f.write(line)
@@ -98,6 +108,8 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
     args.langs = args.langs.split(",")
+
+    print(f"Collecting tweets with languages {' '.join(args.langs)}")
 
     secrets = get_secrets(args.secrets)
     emojis = get_emojis(args.emojis)
