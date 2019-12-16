@@ -45,18 +45,6 @@ class EmojiStreamListener(tweepy.StreamListener):
         # Remove tabs and spaces
         text = " ".join(text.split())
 
-        # Remove RT at the beginnin
-        text = re.sub(r"^RT ", "", text)
-
-        # Remove links, user links, and hashtags
-        text = re.sub(r"(@[A-Za-z0-9]+)|([^0-9A-Za-z \t])|(\w+:\/\/\S+)", "", text)
-
-        # # Remove hashtags
-        # text = re.sub(r"/^#\w+$/", "", text)
-
-        # Remove non alphanumerics but leave spaces
-        text = re.sub(r"([^\s\w]|_)+", "", text)
-
         # Remove trailing whitespace
         text = text.strip()
 
